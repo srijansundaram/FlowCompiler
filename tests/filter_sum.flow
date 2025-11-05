@@ -1,0 +1,5 @@
+load "datasets/sales.csv" as sales
+pipeline revenue:
+    sales |> filter amount > 0
+          |> sum amount as total
+          |> emit to "datasets/output_filter_sum.csv"

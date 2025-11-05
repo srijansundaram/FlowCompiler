@@ -1,0 +1,5 @@
+load "datasets/sales.csv" as sales
+pipeline clean_data:
+    sales |> ensure amount >= 0
+          |> drop_dup id
+          |> emit to "datasets/output_clean.csv"

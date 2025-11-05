@@ -1,0 +1,7 @@
+load "datasets/employees.csv" as employees
+load "datasets/customers.csv" as customers
+
+pipeline join_pipeline:
+    employees |> join customers on id
+              |> select id, name, city
+              |> emit to "datasets/output_join.csv"

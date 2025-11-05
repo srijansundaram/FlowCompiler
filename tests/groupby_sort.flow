@@ -1,0 +1,6 @@
+load "datasets/sales.csv" as sales
+pipeline report:
+    sales |> group_by category
+          |> sum amount as total
+          |> sort_by total desc
+          |> emit to "datasets/output_groupby_sort.csv"
