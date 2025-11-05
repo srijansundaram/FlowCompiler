@@ -80,7 +80,7 @@ Author: **Srijan**
 
 ---
 
-## 🧠 November 5 — AI Syntax Assistance (Phase 1)
+## 🧠 November 6 — AI Syntax Assistance (Phase 1)
 
 **Milestone:** Compiler becomes self-aware 😎
 
@@ -100,15 +100,49 @@ Line 6: 'emt' → Did you mean 'emit (85% match)'?
 **Outcome:**  
 ✅ Compiler now provides smart syntax feedback before compilation.
 
+📅 **Completed Early:** November 5, 2025
+
+---
+
+## 🧠 November 7, 2025 — AI Auto-Correction (Phase 2)
+
+**Milestone:** Compiler can now fix itself ✨
+
+**Highlights:**
+
+- Extended `ai_hooks.py` with **auto-correction system**.
+- Added `auto_correct_source()` — rewrites Flow code in memory before compilation.
+- Implemented user interaction prompt:
+  Apply these corrections automatically? (y/n)
+- Introduced safety threshold (≥ 65% confidence) to prevent wrong corrections.
+- Skips dataset aliases (`as sales`) and reserved words (`to`, `on`, `as`, `rename`).
+- Confirmed with `tests/typo_test.flow` that valid typos are fixed automatically:
+- `sm → sum`
+- `emt → emit`
+- False positives eliminated after sensitivity tuning.
+
+**Example Output:**
+Apply these corrections automatically? (y/n): y
+✅ Applied corrections in-memory. Continuing compilation...
+✅ Running generated pipeline...
+✅ Pipeline execution completed successfully.
+
+**Outcome:**
+✅ Compiler can now self-correct and continue execution automatically.  
+🧠 FlowCompiler officially has “auto-healing syntax”.
+
+📅 **Completed Early:** November 5, 2025
+
+---
+
 ## 🧭 Next Planned Milestones
 
-| Date Range    | Objective                | Description                                                                    |
-| ------------- | ------------------------ | ------------------------------------------------------------------------------ |
-| **Nov 6–8**   | 🤖 _AI Syntax Assistant_ | Integrate `ai_hooks.py` for intelligent syntax suggestions and typo detection. |
-| **Nov 9–10**  | 🧠 _Semantic Analysis_   | Validate dataset columns and references in `.flow` code before generation.     |
-| **Nov 11–12** | 🔗 _Pipeline Chaining_   | Allow one pipeline’s output to feed another as input automatically.            |
-| **Nov 13–15** | 💡 _CLI Enhancements_    | Add colored logs, progress bars, and detailed error messages.                  |
-| **By Nov 18** | 🏁 _Final Build_         | Package compiler, documentation, and demo examples for submission.             |
+| Date Range    | Objective              | Description                                                                |
+| ------------- | ---------------------- | -------------------------------------------------------------------------- |
+| **Nov 9–10**  | 🧠 _Semantic Analysis_ | Validate dataset columns and references in `.flow` code before generation. |
+| **Nov 11–12** | 🔗 _Pipeline Chaining_ | Allow one pipeline’s output to feed another as input automatically.        |
+| **Nov 13–15** | 💡 _CLI Enhancements_  | Add colored logs, progress bars, and detailed error messages.              |
+| **By Nov 18** | 🏁 _Final Build_       | Package compiler, documentation, and demo examples for submission.         |
 
 ---
 

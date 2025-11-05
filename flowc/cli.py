@@ -3,7 +3,8 @@
 import subprocess
 from flowc.parser import parse_flow
 from flowc.codegen import generate_pandas_code
-from flowc.ai_hooks import detect_invalid_keywords
+from flowc.ai_hooks import detect_invalid_keywords, auto_correct_source
+
 
 
 def main():
@@ -30,8 +31,13 @@ def main():
                         print(f"   Line {line_num}: '{wrong}' → Did you mean '{suggestion}'?")
                     else:
                         print(f"   Line {line_num}: '{wrong}' → Unknown keyword (no suggestion found)")
-                print("\nContinuing compilation...\n")
-            main._ai_checked = True
+
+                choice = input("\nApply these corrections automatically? (y/n): ").strip().lower()
+                if choice == "y":
+                    src = auto_correct_source(src, issues)
+                    print("\n✅ Applied corrections in-memory. Continuing compilation...\n")
+                else:
+                    print("\nSkipping auto-correction. Continuing compilation...\n")
 
 
         load, pipelines = parse_flow(src)
