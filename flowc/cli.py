@@ -3,6 +3,8 @@
 import subprocess
 from flowc.parser import parse_flow
 from flowc.codegen import generate_pandas_code
+from flowc.ai_hooks import detect_invalid_keywords
+
 
 def main():
     import sys
@@ -17,6 +19,20 @@ def main():
     try:
         with open(src_path) as f:
             src = f.read()
+            
+
+        if not hasattr(main, "_ai_checked"):
+            issues = detect_invalid_keywords(src)
+            if issues:
+                print("\n⚠️  Possible Syntax Issues Detected:")
+                for line_num, wrong, suggestion in issues:
+                    if suggestion:
+                        print(f"   Line {line_num}: '{wrong}' → Did you mean '{suggestion}'?")
+                    else:
+                        print(f"   Line {line_num}: '{wrong}' → Unknown keyword (no suggestion found)")
+                print("\nContinuing compilation...\n")
+            main._ai_checked = True
+
 
         load, pipelines = parse_flow(src)
         generate_pandas_code(load, pipelines)

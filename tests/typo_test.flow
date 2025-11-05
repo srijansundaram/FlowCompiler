@@ -1,0 +1,6 @@
+load "datasets/sales.csv" as sales
+
+pipeline typo_test:
+    sales |> groop_by region
+          |> sm revenue
+          |> emt to "datasets/typo_output.csv"

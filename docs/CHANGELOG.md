@@ -80,6 +80,26 @@ Author: **Srijan**
 
 ---
 
+## 🧠 November 5 — AI Syntax Assistance (Phase 1)
+
+**Milestone:** Compiler becomes self-aware 😎
+
+**Highlights:**
+
+- Added new module `ai_hooks.py` for intelligent typo detection.
+- Integrated fuzzy keyword matching via `difflib`.
+- Compiler now detects and suggests corrections for misspelled Flow commands.
+- Displays confidence score for each suggestion.
+- Successfully tested using `tests/typo_test.flow`.
+
+**Example Output:**
+⚠️ Possible Syntax Issues Detected:
+Line 5: 'sm' → Did you mean 'sum (80% match)'?
+Line 6: 'emt' → Did you mean 'emit (85% match)'?
+
+**Outcome:**  
+✅ Compiler now provides smart syntax feedback before compilation.
+
 ## 🧭 Next Planned Milestones
 
 | Date Range    | Objective                | Description                                                                    |
