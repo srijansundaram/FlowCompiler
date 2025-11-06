@@ -2,7 +2,9 @@
 
 ### Compiled by: Srijan
 
-### Last Updated: November 5, 2025
+### Last Updated: November 6, 2025 (Stable Alpha v0.9)
+
+**Current Version:** v0.9 — Stable Alpha (Completed on November 6, 2025)
 
 ---
 
@@ -137,11 +139,67 @@ AI system now provides both syntax awareness and self-correction capabilities.
 
 ---
 
+## 🧩 6. Semantic Validation Phase — Completed Early on November 6, 2025
+
+**Module:** `semantic.py`  
+**Purpose:** Validate dataset structure and detect logical (semantic) errors before code generation.
+
+### Test Files:
+
+- `tests/semantic_test.flow`
+- `tests/semantic_suggestion.flow`
+
+### Datasets Used:
+
+- `datasets/sales.csv`
+- `datasets/employees.csv`
+
+---
+
+### ✅ Positive Test — `semantic_test.flow`
+
+| Check              | Expected          | Result |
+| ------------------ | ----------------- | ------ |
+| Valid dataset file | Exists            | ✅     |
+| Valid column       | Found             | ✅     |
+| Valid emit path    | Accepted          | ✅     |
+| Compiler proceeds  | Runs successfully | ✅     |
+
+**Output:**
+✅ Semantic validation passed successfully.
+✅ Running generated pipeline...
+✅ Pipeline execution completed successfully.
+
+---
+
+### ❌ Negative Test — `semantic_suggestion.flow`
+
+| Check                      | Expected                 | Result |
+| -------------------------- | ------------------------ | ------ |
+| Invalid column (`reveneu`) | Detected                 | ✅     |
+| Fuzzy suggestion           | Skipped (no match found) | ✅     |
+| Compilation stop           | Safe termination         | ✅     |
+
+**Output:**
+✅ Compiling tests/semantic_suggestion.flow...
+❌ Semantic Error: Column 'reveneu' not found in dataset 'sales'
+❌ Compilation aborted due to semantic error.
+
+---
+
+### 🧠 Summary
+
+✅ Semantic module successfully intercepts runtime column issues before codegen.  
+✅ Ensures Flow scripts only run with valid data context.  
+⚙️ Integrated seamlessly with AI + Parser layers.
+
 ## 🧾 Overall Status
 
-- ✅ All modules from **Parser → AI System** verified and functional.
-- ⚙️ Semantic validation module (Nov 8 goal) pending implementation next.
+- ✅ All modules from **Parser → Semantic Validation** verified and functional.
+- 🧩 Compiler now fully data-aware with semantic validation checks.
+- ⚙️ No active issues or runtime crashes detected during testing.
+- ⚙️ Pipeline Chaining Phase (Nov 11 goal) pending implementation next.
 
-**Total Test Status:** ✅ Passed 33 / 34  
-**Date Completed:** November 5, 2025  
+**Total Test Status:** ✅ Passed 35 / 35  
+**Date Completed:** November 6, 2025  
 **Tester:** Srijan

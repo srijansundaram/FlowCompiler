@@ -4,7 +4,7 @@ import subprocess
 from flowc.parser import parse_flow
 from flowc.codegen import generate_pandas_code
 from flowc.ai_hooks import detect_invalid_keywords, auto_correct_source
-
+from flowc.semantic import validate_semantics
 
 
 def main():
@@ -41,6 +41,14 @@ def main():
 
 
         load, pipelines = parse_flow(src)
+        
+        try:
+            validate_semantics(load, pipelines)
+        except Exception as e:
+            print(e)
+            print("❌ Compilation aborted due to semantic error.\n")
+            return
+
         generate_pandas_code(load, pipelines)
 
         print("✅ Running generated pipeline...\n")

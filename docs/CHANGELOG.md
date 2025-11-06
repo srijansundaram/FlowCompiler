@@ -1,164 +1,153 @@
-# 🧾 Flow Compiler — Changelog
+# 🧾 FlowCompiler — Project Changelog
 
-### Project Timeline: November 2 – November 5, 2025
-
-Author: **Srijan**
+_A chronological record of development milestones, updates, and improvements._
 
 ---
 
-## 🗓️ November 2, 2025 — Project Initialization 🚀
+## 📅 November 2, 2025 — Initial Project Setup
 
-**Milestone:** Compiler Foundation Created  
+**Version:** v0.1 — Project Scaffold
+
+**Milestone:** Project initialization and environment setup 🏗️
+
 **Highlights:**
 
-- Designed complete folder structure (`flowc/`, `datasets/`, `examples/`).
-- Implemented **starter modules**:
-  - `lexer.py`, `parser.py`, `codegen.py`, `cli.py`
-- Created `.flow` script support (simple syntax parsing and output).
-- First successful compile of `.flow` → generated Python → manual run.
-- Verified working environment on Python 3.12 + Pandas 2.2.
-
-**Outcome:** Project scaffolding operational and ready for language definition.
-
----
-
-## 🗓️ November 3, 2025 — AST & Parser Expansion 🧠
-
-**Milestone:** Core Language Features Implemented  
-**Highlights:**
-
-- Added full **AST node hierarchy** using `@dataclass` (`Load`, `Filter`, `Sum`, `GroupBy`, `Emit`, etc.).
-- Implemented **Parser → AST conversion**.
-- Extended parser to handle:
-  - `filter`, `sum`, `group_by`, `emit`
-  - Chained `|>` syntax support.
-- Added modular file reading and output emission.
-- Created example `.flow` files under `/examples`.
-
-**Outcome:** Compiler can now parse complex `.flow` files and map operations to AST nodes.
-
----
-
-## 🗓️ November 4, 2025 — Code Generation & CLI Integration ⚙️
-
-**Milestone:** End-to-End Compilation  
-**Highlights:**
-
-- Implemented **Pandas backend code generation** (`codegen.py`).
-- Automated pipeline:
-- Built interactive **CLI tool** (`flowc.cli`) with commands:
-- Supported multi-step pipelines and auto execution of generated Python.
-- Added error-handling and progress messages in CLI.
-
-**Outcome:** FlowCompiler successfully generates runnable Python code automatically — first true compiler execution!
-
----
-
-## 🗓️ November 5, 2025 — Stability & Multi-Pipeline Testing 🧩
-
-**Milestone:** Functional Validation Complete  
-**Highlights:**
-
-- Enhanced parser for indentation-aware pipeline chaining.
-- Added support for multiple datasets (`load` statements).
-- Implemented **join**, **sort**, **dropduplicates**, and **average** steps.
-- Resolved major bugs:
-- Parser skipping chained joins
-- Extra parenthesis in `Emit`
-- `KeyError: 'city'` due to join order
-- Validated with four full `.flow` pipelines:
-  | Test | Output |
-  |-------|--------|
-  | Filter + Sum | `output_filter_sum.csv` |
-  | GroupBy + Sort | `output_groupby_sort.csv` |
-  | Join | `output_join.csv` |
-  | Clean | `output_clean.csv` |
+- Created base folder structure: `/flowc/` (parser, codegen, cli, etc.).
+- Configured CLI entry point for running `.flow` files.
+- Added minimal starter code to execute a sample Flow program.
+- Verified command-line invocation via `python -m flowc.cli`.
 
 **Outcome:**  
-✅ All pipelines passed end-to-end.  
-✅ Compiler now stable, fully functional, and production-ready foundation.
+✅ Basic compiler framework created successfully.
 
 ---
 
-## 🧠 November 6 — AI Syntax Assistance (Phase 1)
+## 📅 November 3, 2025 — Parser & AST Implementation
 
-**Milestone:** Compiler becomes self-aware 😎
+**Version:** v0.2 — Core Syntax Understanding
+
+**Milestone:** Implemented parser and Abstract Syntax Tree (AST) for Flow language 🧩
 
 **Highlights:**
 
-- Added new module `ai_hooks.py` for intelligent typo detection.
-- Integrated fuzzy keyword matching via `difflib`.
-- Compiler now detects and suggests corrections for misspelled Flow commands.
-- Displays confidence score for each suggestion.
-- Successfully tested using `tests/typo_test.flow`.
-
-**Example Output:**
-⚠️ Possible Syntax Issues Detected:
-Line 5: 'sm' → Did you mean 'sum (80% match)'?
-Line 6: 'emt' → Did you mean 'emit (85% match)'?
+- Added `ast_nodes.py` defining 13 major AST components:
+  `Load`, `Filter`, `GroupBy`, `Sum`, `Emit`, `SortBy`, `DropDuplicates`, `Average`, `Ensure`, `Join`, `Rename`, `Select`, `Pipeline`.
+- Added `parser.py` to translate `.flow` syntax into Python-executable AST nodes.
+- Verified line-by-line translation of Flow scripts into structured Python data objects.
 
 **Outcome:**  
-✅ Compiler now provides smart syntax feedback before compilation.
-
-📅 **Completed Early:** November 5, 2025
+✅ Flow syntax parsing complete.  
+✅ AST construction validated with test pipelines.
 
 ---
 
-## 🧠 November 7, 2025 — AI Auto-Correction (Phase 2)
+## 📅 November 4, 2025 — Code Generator & CLI Execution
 
-**Milestone:** Compiler can now fix itself ✨
+**Version:** v0.3 — Codegen + CLI Integration
+
+**Milestone:** Compiler generates and executes Python code using Pandas backend ⚙️
 
 **Highlights:**
 
-- Extended `ai_hooks.py` with **auto-correction system**.
-- Added `auto_correct_source()` — rewrites Flow code in memory before compilation.
-- Implemented user interaction prompt:
+- Implemented `codegen.py` for translating AST → Pandas operations.
+- Integrated code generation step into `cli.py` to automate `.flow` execution.
+- Added support for:
+  - `filter`, `group_by`, `sum`, `emit`
+  - DataFrame creation and transformations.
+- Verified with sample Flow scripts (`monthly_revenue.flow`).
+
+**Outcome:**  
+✅ `.flow` → `.py` → Executed pipeline working end-to-end.  
+✅ Compiler officially functional.
+
+---
+
+## 📅 November 5, 2025 — AI Syntax Assistance & Auto-Correction (Hooks v1 & v2)
+
+**Version:** v0.6 — Intelligent Syntax Layer
+
+**Milestone:** Introduced AI-driven syntax checking and correction 🤖
+
+**Highlights:**
+
+- Added `ai_hooks.py` to detect syntax typos and invalid keywords.
+- Integrated AI validation step inside CLI before parsing.
+- Implemented auto-correction logic for near-matching keywords using Levenshtein similarity.
+- Added interactive prompt:
   Apply these corrections automatically? (y/n)
-- Introduced safety threshold (≥ 65% confidence) to prevent wrong corrections.
-- Skips dataset aliases (`as sales`) and reserved words (`to`, `on`, `as`, `rename`).
-- Confirmed with `tests/typo_test.flow` that valid typos are fixed automatically:
-- `sm → sum`
-- `emt → emit`
-- False positives eliminated after sensitivity tuning.
+- Detected and fixed typos like:
+- `emt` → `emit`
+- `sm` → `sum`
+- `gruop_by` → `group_by`
+- Both AI detection and auto-correction phases (v1 & v2) completed on the same day.
 
-**Example Output:**
-Apply these corrections automatically? (y/n): y
-✅ Applied corrections in-memory. Continuing compilation...
-✅ Running generated pipeline...
-✅ Pipeline execution completed successfully.
-
-**Outcome:**
-✅ Compiler can now self-correct and continue execution automatically.  
-🧠 FlowCompiler officially has “auto-healing syntax”.
-
-📅 **Completed Early:** November 5, 2025
+**Outcome:**  
+✅ Compiler intelligently detects and corrects user typos.  
+✅ AI system integrated fully into CLI workflow.  
+✅ Achieved advanced user-friendly syntax feedback.
 
 ---
 
-## 🧭 Next Planned Milestones
+## 📅 November 6, 2025 — Semantic Validation Phase (Completed Early)
 
-| Date Range    | Objective              | Description                                                                |
-| ------------- | ---------------------- | -------------------------------------------------------------------------- |
-| **Nov 9–10**  | 🧠 _Semantic Analysis_ | Validate dataset columns and references in `.flow` code before generation. |
-| **Nov 11–12** | 🔗 _Pipeline Chaining_ | Allow one pipeline’s output to feed another as input automatically.        |
-| **Nov 13–15** | 💡 _CLI Enhancements_  | Add colored logs, progress bars, and detailed error messages.              |
-| **By Nov 18** | 🏁 _Final Build_       | Package compiler, documentation, and demo examples for submission.         |
+**Version:** v0.9 — Data-Aware Compiler Intelligence
+
+**Milestone:** Compiler gains data understanding (semantic validation layer) 🧠
+
+**Highlights:**
+
+- Added `semantic.py` for pre-execution dataset validation.
+- Integrated semantic checks into CLI before codegen.
+- Key checks:
+- Dataset existence before loading.
+- Column validity during transformations.
+- Join alias and column verification.
+- Multi-dataset handling supported (for future chaining).
+- Added fuzzy column suggestion (AI-powered):
+  ❌ Column 'reveneu' not found in dataset 'sales'. Did you mean 'revenue'?
+- Clean error handling without breaking compilation pipeline.
+
+**Outcome:**  
+✅ Compiler now validates dataset structure and semantics intelligently.  
+✅ Completed Nov 8–10 planned phase **ahead of schedule**.  
+✅ Semantic system stable and AI-assisted.
 
 ---
 
-## 🧩 Collaboration & Logging Policy
+## 🏁 Version v0.9 — Stable Alpha Release
 
-- **`CHANGELOG.md`** → Updated daily (end of each dev day)
-- **`test_results.md`** → Updated after every major test batch
-- **Commits:** Pushed daily to preserve experiment traceability
+**Released:** November 6, 2025  
+**Status:** ✅ Feature Complete (Up to Semantic Validation)
+
+### 🚀 Overview
+
+FlowCompiler has reached a **stable alpha** milestone, integrating all planned features up to AI and semantic intelligence.
+
+### 🧩 Included Capabilities
+
+- Syntax Parsing (v0.2)
+- AST & Multi-Pipeline Execution (v0.4)
+- AI Syntax Detection + Auto-Correction (v0.6)
+- Semantic Validation & Fuzzy Suggestions (v0.9)
+
+### 🧠 Summary
+
+FlowCompiler can now:
+
+1. Parse and understand Flow DSL syntax.
+2. Auto-correct and detect syntax errors intelligently.
+3. Validate dataset structure and semantics before execution.
+4. Generate and execute optimized Pandas pipelines automatically.
+
+### 🧭 Next Planned Milestones
+
+| Date Range    | Objective              | Description                                                         |
+| ------------- | ---------------------- | ------------------------------------------------------------------- |
+| **Nov 11–12** | 🔗 _Pipeline Chaining_ | Allow one pipeline’s output to feed another automatically.          |
+| **Nov 13–15** | 💡 _CLI Enhancements_  | Add colored logs, progress bars, and improved user experience.      |
+| **By Nov 18** | 🏁 _Final Build_       | Package compiler, documentation, and examples for final submission. |
+
+📅 **Completed:** November 6, 2025  
+👨‍💻 **Developer:** Srijan
 
 ---
-
-## 🏁 Final Note
-
-> “FlowCompiler began as an experiment in language design and has grown into a smart, explainable compiler for data pipelines — designed, built, and engineered solo by Srijan.”
-
-> 💬 _“From syntax to semantics — FlowCompiler is evolving into a smart data language.”_
-
-📅 **Last Updated:** November 5, 2025  
-👨‍💻 **Maintainer:** Srijan

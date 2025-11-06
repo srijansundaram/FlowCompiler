@@ -1,0 +1,5 @@
+load "datasets/sales.csv" as sales
+
+pipeline valid_sum:
+    sales |> sum amount
+          |> emit to "datasets/output_valid.csv"

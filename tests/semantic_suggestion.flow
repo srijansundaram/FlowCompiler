@@ -1,0 +1,5 @@
+load "datasets/sales.csv" as sales
+
+pipeline typo_test:
+    sales |> sum reveneu
+          |> emit to "datasets/output_typo.csv"
