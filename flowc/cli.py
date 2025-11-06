@@ -3,9 +3,7 @@
 import subprocess
 from flowc.parser import parse_flow
 from flowc.codegen import generate_pandas_code
-from flowc.ai_hooks import detect_invalid_keywords, auto_correct_source
-from flowc.semantic import validate_semantics
-
+from flowc.semantic import check_pipeline_dependencies
 
 def main():
     import sys
@@ -17,53 +15,40 @@ def main():
     src_path = sys.argv[1]
     print(f"✅ Compiling {src_path}...")
 
+    with open(src_path) as f:
+        src = f.read()
+
+    loads, pipelines = parse_flow(src)
+
     try:
-        with open(src_path) as f:
-            src = f.read()
-            
+        check_pipeline_dependencies(pipelines)
+    except Exception as e:
+        print(f"❌ {e}")
+        print("❌ Compilation aborted due to dependency error.")
+        return  # 🚨 Stop here, don't run codegen
 
-        if not hasattr(main, "_ai_checked"):
-            issues = detect_invalid_keywords(src)
-            if issues:
-                print("\n⚠️  Possible Syntax Issues Detected:")
-                for line_num, wrong, suggestion in issues:
-                    if suggestion:
-                        print(f"   Line {line_num}: '{wrong}' → Did you mean '{suggestion}'?")
-                    else:
-                        print(f"   Line {line_num}: '{wrong}' → Unknown keyword (no suggestion found)")
+    print()
+    print("🔗 Dependency validation successful.")
+    generate_pandas_code(loads, pipelines)
 
-                choice = input("\nApply these corrections automatically? (y/n): ").strip().lower()
-                if choice == "y":
-                    src = auto_correct_source(src, issues)
-                    print("\n✅ Applied corrections in-memory. Continuing compilation...\n")
-                else:
-                    print("\nSkipping auto-correction. Continuing compilation...\n")
+    try:
+        with open("generated_pipeline.py", "r", encoding="utf-8") as gen:
+            content = gen.read()
+            if "⚠️ Skipped pipeline" in content or "undefined dependency" in content:
+                print("⚠️ Skipped execution due to incomplete or circular dependencies.")
+                return
+    except FileNotFoundError:
+        print("❌ No generated file found. Compilation aborted.")
+        return
 
-
-        load, pipelines = parse_flow(src)
-        
-        try:
-            validate_semantics(load, pipelines)
-        except Exception as e:
-            print(e)
-            print("❌ Compilation aborted due to semantic error.\n")
-            return
-
-        generate_pandas_code(load, pipelines)
-
-        print("✅ Running generated pipeline...\n")
+    print("✅ Running generated pipeline...\n")
+    try:
         subprocess.run(["python", "generated_pipeline.py"], check=True)
         print("\n✅ Pipeline execution completed successfully.")
-
-        for p in pipelines:
-            for s in p.steps:
-                if hasattr(s, "path"):
-                    print(f"📂 Output saved to: {s.path}")
-                    
-    except Exception as e:
+    except subprocess.CalledProcessError as e:
         print(f"\n❌ Pipeline execution failed: {e}")
-    
-
+    except Exception as e:
+        print(f"\n❌ Unexpected error during execution: {e}")
 
 if __name__ == "__main__":
     main()

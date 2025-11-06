@@ -114,38 +114,54 @@ _A chronological record of development milestones, updates, and improvements._
 
 ---
 
-## 🏁 Version v0.9 — Stable Alpha Release
+## 📅 November 6, 2025 — Pipeline Chaining and Dependency Safety (Completed Early)
+
+**Version:** v1.2.2 — Stable Circular Dependency Handling + Execution Safety
+
+**Milestone:** Enable multi-pipeline chaining and prevent circular or undefined-dependency failures.
+
+**Highlights:**
+
+- Added dependency-graph validation inside `semantic.py`.
+- Updated `codegen.py` to skip pipelines with unresolved or circular dependencies.
+- Enhanced `cli.py` to block execution when incomplete pipelines exist.
+- Implemented safety messages for skipped pipelines:
+  - “⚠️ Skipped pipeline 'A' due to missing dependency 'B'”
+  - “⚠️ Skipped execution due to incomplete or circular dependencies.”
+- Verified with three dedicated tests:
+  1. `tests/valid_chaining.flow` – ✅ Passed
+  2. `tests/missing_dependency.flow` – ⚠️ Handled gracefully
+  3. `tests/circular_dependency.flow` – ✅ Safe skip (no runtime error)
+
+**Outcome:**  
+✅ Stable multi-pipeline support  
+✅ Graceful handling of missing/circular dependencies  
+✅ CLI & codegen fully synchronized
+✅ Completed Nov 11–12 planned phase **ahead of schedule**.
+
+---
+
+## 🏁 Version v1.2.2 — Stable Build (Up to Pipeline Chaining)
 
 **Released:** November 6, 2025  
-**Status:** ✅ Feature Complete (Up to Semantic Validation)
-
-### 🚀 Overview
-
-FlowCompiler has reached a **stable alpha** milestone, integrating all planned features up to AI and semantic intelligence.
+**Status:** ✅ Compiler Stable Up to Chaining Phase
 
 ### 🧩 Included Capabilities
 
-- Syntax Parsing (v0.2)
-- AST & Multi-Pipeline Execution (v0.4)
-- AI Syntax Detection + Auto-Correction (v0.6)
-- Semantic Validation & Fuzzy Suggestions (v0.9)
+- Syntax Parsing & AST
+- Code Generation (Pandas backend)
+- AI Syntax Detection + Auto-Correction
+- Semantic Validation + Fuzzy Suggestions
+- Safe Multi-Pipeline Chaining and Dependency Resolution
 
-### 🧠 Summary
+---
 
-FlowCompiler can now:
+## 🧭 Next Planned Milestones
 
-1. Parse and understand Flow DSL syntax.
-2. Auto-correct and detect syntax errors intelligently.
-3. Validate dataset structure and semantics before execution.
-4. Generate and execute optimized Pandas pipelines automatically.
-
-### 🧭 Next Planned Milestones
-
-| Date Range    | Objective              | Description                                                         |
-| ------------- | ---------------------- | ------------------------------------------------------------------- |
-| **Nov 11–12** | 🔗 _Pipeline Chaining_ | Allow one pipeline’s output to feed another automatically.          |
-| **Nov 13–15** | 💡 _CLI Enhancements_  | Add colored logs, progress bars, and improved user experience.      |
-| **By Nov 18** | 🏁 _Final Build_       | Package compiler, documentation, and examples for final submission. |
+| Date Range    | Objective           | Description                                              |
+| ------------- | ------------------- | -------------------------------------------------------- |
+| **Nov 13–15** | 💡 CLI Enhancements | Add colored logs, progress bars, and UX improvements.    |
+| **By Nov 18** | 🏁 Final Build      | Package compiler, docs and demo examples for submission. |
 
 📅 **Completed:** November 6, 2025  
 👨‍💻 **Developer:** Srijan

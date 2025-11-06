@@ -1,0 +1,5 @@
+pipeline A:
+    B |> filter revenue > 100
+
+pipeline B:
+    A |> sum revenue

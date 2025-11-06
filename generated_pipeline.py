@@ -1,6 +1,10 @@
 import pandas as pd
 
-sales = pd.read_csv(r"datasets/sales.csv")
+# ⚠️ No load statement found; starting with empty DataFrame
+data = pd.DataFrame()
 
-sales = pd.DataFrame([sales["amount"].sum()], columns=["amount"])
-sales.to_csv(r"datasets/output_valid.csv", index=False)
+# ----- Pipeline: A -----
+# ⚠️ Skipped pipeline 'A' due to unresolved pipeline alias 'B'
+
+# ----- Pipeline: B -----
+# ⚠️ Skipped pipeline 'B' due to missing dependency 'A'

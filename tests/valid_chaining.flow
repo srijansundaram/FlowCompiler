@@ -1,0 +1,7 @@
+load "datasets/sales.csv" as sales
+
+pipeline clean:
+    sales |> dropduplicates id |> emit to "datasets/clean_sales.csv"
+
+pipeline summary:
+    clean |> group_by region |> sum revenue |> emit to "datasets/summary.csv"

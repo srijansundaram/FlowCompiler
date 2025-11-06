@@ -11,7 +11,9 @@ class Load:
 @dataclass
 class Pipeline:
     name: str
-    steps: List[str] = field(default_factory=list)
+    steps: list
+    base_alias: str = None
+    depends_on: str = None 
 
 @dataclass
 class Filter:

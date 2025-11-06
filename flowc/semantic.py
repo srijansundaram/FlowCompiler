@@ -67,3 +67,34 @@ def validate_semantics(load, pipelines):
                         )
 
     print("✅ Semantic validation passed successfully.\n")
+
+
+def check_pipeline_dependencies(pipelines):
+    graph = {}
+    for pipe in pipelines:
+        if pipe.depends_on:
+            graph.setdefault(pipe.name, []).append(pipe.depends_on)
+
+    visited = set()
+    stack = set()
+
+    def dfs(node):
+        if node in stack:
+            raise Exception(f"Circular dependency detected in pipeline chain involving '{node}'.")
+        if node in visited:
+            return
+        stack.add(node)
+        for dep in graph.get(node, []):
+            dfs(dep)
+        stack.remove(node)
+        visited.add(node)
+
+    for node in graph:
+        dfs(node)
+    
+    defined_pipelines = {p.name for p in pipelines}
+    for pipe in pipelines:
+        if pipe.depends_on and pipe.depends_on not in defined_pipelines:
+            raise Exception(f"Alias Error: '{pipe.depends_on}' is not defined in any previous pipeline or load.")
+
+    print("🔗 Dependency validation successful.")
