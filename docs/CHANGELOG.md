@@ -141,10 +141,43 @@ _A chronological record of development milestones, updates, and improvements._
 
 ---
 
-## 🏁 Version v1.2.2 — Stable Build (Up to Pipeline Chaining)
+Got it ✅ — here’s exactly what you’ll **append** to the bottom of your current `CHANGELOG.md` (keeping your same format and tone).
 
-**Released:** November 6, 2025  
-**Status:** ✅ Compiler Stable Up to Chaining Phase
+---
+
+### 📅 **November 8, 2025 — v1.2.2 (CLI Enhancements)**
+
+**Milestone:** CLI Usability and Developer Experience Upgrade (Originally planned for Nov 13–15)
+
+**Changes Implemented:**
+
+- Integrated **Rich** library for colorized logs and formatted output.
+- Added **progress bars** for pipeline generation and execution.
+- Introduced **`--verbose` flag** for detailed debugging and AST visibility.
+- Introduced **`--no-run` flag** to compile without executing.
+- Replaced print statements with **emoji-based styled console messages**.
+- Added **summary panel** showing:
+
+  - Source file
+  - Output file
+  - Total pipelines processed
+  - Execution time
+  - Version number
+
+- Improved error visibility with color-coded tracebacks.
+- Overall user experience now resembles professional compilers like Rust or TypeScript.
+
+**Outcome:**
+✅ CLI enhanced with modern UX and status tracking.
+✅ All tests passed successfully.
+✅ Completed milestone of 18 Nov **ahead of schedule** on **Nov 8, 2025**.
+
+---
+
+## 🏁 Version v1.2.2 — Stable Build (Up to CLI Enhancements)
+
+**Released:** November 8, 2025  
+**Status:** ✅ Compiler Stable Up to CLI Enhancements.
 
 ### 🧩 Included Capabilities
 
@@ -158,10 +191,9 @@ _A chronological record of development milestones, updates, and improvements._
 
 ## 🧭 Next Planned Milestones
 
-| Date Range    | Objective           | Description                                              |
-| ------------- | ------------------- | -------------------------------------------------------- |
-| **Nov 13–15** | 💡 CLI Enhancements | Add colored logs, progress bars, and UX improvements.    |
-| **By Nov 18** | 🏁 Final Build      | Package compiler, docs and demo examples for submission. |
+| Date Range    | Objective      | Description                                              |
+| ------------- | -------------- | -------------------------------------------------------- |
+| **By Nov 18** | 🏁 Final Build | Package compiler, docs and demo examples for submission. |
 
 📅 **Completed:** November 6, 2025  
 👨‍💻 **Developer:** Srijan

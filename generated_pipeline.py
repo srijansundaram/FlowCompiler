@@ -1,10 +1,11 @@
 import pandas as pd
 
-# ⚠️ No load statement found; starting with empty DataFrame
-data = pd.DataFrame()
+employees = pd.read_csv(r"datasets/employees.csv")
+customers = pd.read_csv(r"datasets/customers.csv")
 
-# ----- Pipeline: A -----
-# ⚠️ Skipped pipeline 'A' due to unresolved pipeline alias 'B'
-
-# ----- Pipeline: B -----
-# ⚠️ Skipped pipeline 'B' due to missing dependency 'A'
+# ----- Pipeline: join_pipeline -----
+join_pipeline = employees.copy()
+join_pipeline = join_pipeline.merge(customers, on="id", how="inner")
+join_pipeline = join_pipeline[["id", "name", "city"]]
+join_pipeline.to_csv(r"datasets/output_join.csv", index=False)
+print("📂 Output written to datasets/output_join.csv")
