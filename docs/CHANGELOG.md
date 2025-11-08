@@ -141,10 +141,6 @@ _A chronological record of development milestones, updates, and improvements._
 
 ---
 
-Got it ✅ — here’s exactly what you’ll **append** to the bottom of your current `CHANGELOG.md` (keeping your same format and tone).
-
----
-
 ### 📅 **November 8, 2025 — v1.2.2 (CLI Enhancements)**
 
 **Milestone:** CLI Usability and Developer Experience Upgrade (Originally planned for Nov 13–15)
@@ -172,30 +168,34 @@ Got it ✅ — here’s exactly what you’ll **append** to the bottom of your c
 ✅ All tests passed successfully.
 ✅ Completed milestone of 18 Nov **ahead of schedule** on **Nov 8, 2025**.
 
+## [v1.2.3] – Final Build Phase (Nov 8, 2025)
+
+### Summary
+
+This release marks the **final stable build** of Flow Compiler — fully packaged, documented, and ready for public distribution.
+
+### New Features
+
+- 🧱 Added `setup.py` for pip packaging and installation
+- 📜 Added example `.flow` pipelines in `/examples`
+- 🧾 Updated documentation for installation, CLI usage, and syntax
+- ⚙️ Integrated `requirements.txt` for dependencies
+- 🧩 Verified global CLI execution post-installation
+
+### Improvements
+
+- Enhanced metadata (author info, repo URL, classifiers)
+- Polished CLI messages and final stability pass
+- Unified version tracking across compiler and docs
+
+### Versioning
+
+- Current Version: **v1.2.3**
+- Release Type: 🟢 Stable Final Build
+
 ---
 
-## 🏁 Version v1.2.2 — Stable Build (Up to CLI Enhancements)
-
-**Released:** November 8, 2025  
-**Status:** ✅ Compiler Stable Up to CLI Enhancements.
-
-### 🧩 Included Capabilities
-
-- Syntax Parsing & AST
-- Code Generation (Pandas backend)
-- AI Syntax Detection + Auto-Correction
-- Semantic Validation + Fuzzy Suggestions
-- Safe Multi-Pipeline Chaining and Dependency Resolution
-
----
-
-## 🧭 Next Planned Milestones
-
-| Date Range    | Objective      | Description                                              |
-| ------------- | -------------- | -------------------------------------------------------- |
-| **By Nov 18** | 🏁 Final Build | Package compiler, docs and demo examples for submission. |
-
-📅 **Completed:** November 6, 2025  
+📅 **Completed:** November 8, 2025  
 👨‍💻 **Developer:** Srijan
 
 ---
