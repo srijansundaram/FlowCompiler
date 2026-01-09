@@ -143,16 +143,16 @@ It automatically:
 
 ## 👨‍💻 Author
 
-**Srijan Sundaram**
-📍 India
-💼 [GitHub](https://github.com/srijansundaram)
-📜 [VS Code Extension: Flow Language Support](https://marketplace.visualstudio.com/items?itemName=SrijanSundaram.flow-language-support)
+**Srijan Sundaram** <br>
+📍 India <br>
+💼 [GitHub](https://github.com/srijansundaram) <br>
+📜 [VS Code Extension: Flow Language Support](https://marketplace.visualstudio.com/items?itemName=SrijanSundaram.flow-language-support)<br>
 
 ---
 
 ## 🧾 License
 
-Licensed under the **MIT License**.
+Licensed under the **MIT License**. <br>
 See [`LICENSE`](LICENSE) for details.
 
 ---
