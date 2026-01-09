@@ -1,11 +1,11 @@
 import pandas as pd
 
-employees = pd.read_csv(r"datasets/employees.csv")
-customers = pd.read_csv(r"datasets/customers.csv")
+sales = pd.read_csv(r"datasets/sales.csv")
 
-# ----- Pipeline: join_pipeline -----
-join_pipeline = employees.copy()
-join_pipeline = join_pipeline.merge(customers, on="id", how="inner")
-join_pipeline = join_pipeline[["id", "name", "city"]]
-join_pipeline.to_csv(r"datasets/output_join.csv", index=False)
-print("📂 Output written to datasets/output_join.csv")
+# ----- Pipeline: monthly_revenue -----
+monthly_revenue = sales.copy()
+monthly_revenue = monthly_revenue.query("region == "id",")
+monthly_revenue = monthly_revenue.groupby("month").sum().reset_index()
+monthly_revenue = pd.DataFrame([monthly_revenue["amount"].sum()], columns=["revenue"])
+monthly_revenue.to_csv(r"datasets/output_filter_sum.csv", index=False)
+print("📂 Output written to datasets/output_filter_sum.csv")
